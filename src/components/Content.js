@@ -19,7 +19,7 @@ function Content(props) {
   const [open, setOpen] = useState(false);
   const [time, setTime] = useState(new Date().toLocaleTimeString());
   const secondsPassed = useRef(0);
-  const timeLeft = useRef(241);
+  const timeLeft = useRef(10);
   
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -27,7 +27,7 @@ function Content(props) {
       secondsPassed.current = secondsPassed.current + 1;
       setTime(date.toLocaleTimeString());
       if (timeLeft.current - secondsPassed.current <= 0) {
-        timeLeft.current = 241;
+        timeLeft.current = 10;
         setOpen(false);
       }
     }, 1000);
