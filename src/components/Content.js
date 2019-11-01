@@ -19,12 +19,17 @@ function Content(props) {
   const [open, setOpen] = useState(false);
   const [time, setTime] = useState(new Date().toLocaleTimeString());
   const secondsPassed = useRef(0);
+  const timeLeft = useRef(241);
   
   useEffect(() => {
     const timeout = setTimeout(() => {
       const date = new Date()
       secondsPassed.current = secondsPassed.current + 1;
       setTime(date.toLocaleTimeString());
+      if (timeLeft.current - secondsPassed.current <= 0) {
+        timeLeft.current = 241;
+        setOpen(false);
+      }
     }, 1000);
     return () => {
       clearTimeout(timeout);
@@ -38,7 +43,7 @@ function Content(props) {
           <Modal.Title>โปรดรอคิว</Modal.Title>
         </Modal.Header>
         <Modal.Body className='text-center'>
-          <p>คุณเป็นคิวที่ {241 - Math.floor(secondsPassed.current)}</p><br/>
+          <p>คุณเป็นคิวที่ {timeLeft.current - Math.floor(secondsPassed.current)}</p><br/>
           <p>เมื่อถึงคิวระบบจะพาท่านไปยังหน้าลงทะเบียน</p>
           <br/>
           <Spinner animation="border" role="status">
